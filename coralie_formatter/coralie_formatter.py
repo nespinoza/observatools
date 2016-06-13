@@ -31,6 +31,6 @@ f.write('type\tccdros\tsn\tnoprog\trefnocod\talphacat\tdeltacat\tequicat\tmv\n')
 f.write('------\n')
 
 for i in range(len(name)):
-	f.write('COR_OBTH\tslow\t'+sn+'\t1\t'+name[i]+'\t'+\
+	f.write('COR_OBFP\tslow\t'+sn+'\t1\t'+name[i]+'\t'+\
 			ra[i]+'\t'+dec[i]+'\t2000.0\t'+mag[i]+'\n')
 f.close()
