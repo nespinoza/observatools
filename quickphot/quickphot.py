@@ -53,13 +53,14 @@ def bin_data(t,rf_mag,rf_mag_err,n_bin = 10):
     return times_bins,mags_bins,errors_bins
 
 #############################################
-filename = 'k11_quickphot.dat'
+filename = 'out_qphot.dat'
 images = glob.glob('*.fits')
 target_center = [2840,1520]
 comp_center = [1870,1733]#[1080,660]
 first_time = True
 hs = 50
 ap_rad = 25
+user_filt = 'i'
 #############################################
 
 if not first_time:
@@ -78,15 +79,17 @@ if not os.path.exists('phot_images_comp'):
 
 for im in images:
     d,h = pyfits.getdata(im,header=True)
-    if (h['FILTER'] == 'u') and (im not in all_images):
+    if (h['FILTER'] == user_filt) and (im not in all_images):
         all_images.append(im)
         time_ut = h['UT-TIME']
         hh,mm,ss = time_ut.split(':')
         hh = np.double(hh)
         mm = np.double(mm)
         ss = np.double(ss)
-        if hh>0:
+        if hh>=0:
             time = hh + (mm/60.) + (ss/3600.)
+        else:
+            time = (hh + (mm/60.) + (ss/3600.))-24.
         subimg = d[target_center[0]-hs:target_center[0]+hs,target_center[1]-hs:target_center[1]+hs]
         sky = np.median(subimg)
         subimg = subimg - sky
