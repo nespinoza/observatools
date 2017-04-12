@@ -86,7 +86,7 @@ for im in images:
         hh = np.double(hh)
         mm = np.double(mm)
         ss = np.double(ss)
-        if hh>=0:
+        if hh>=0 and hh<=15:
             time = hh + (mm/60.) + (ss/3600.)
         else:
             time = (hh + (mm/60.) + (ss/3600.))-24.
